@@ -54,8 +54,11 @@ int Khi_gas_value = 0;
 int cuachinh_servo_value = 0;
 int phongngu_servo_value = 0;
 
-boolean trangthai_cuachinh = HIGH;
-boolean trangthai_phongngu = HIGH;
+int  trangthai_cuachinh = 1;
+int trangthai_phongngu = 1;
+boolean btccState  = HIGH;
+boolean btpnState  = HIGH;
+
 
 unsigned long now = millis();
 unsigned long lastTrigger = 0;
@@ -104,22 +107,36 @@ void dieukhien_phongngu(int trangthai)
 
 void checkButton(){
   if(digitalRead(BUTTON_CUA_CHINH)==LOW){ 
-      trangthai_cuachinh = ~trangthai_cuachinh;
+    if (btccState == HIGH){
+      if (trangthai_cuachinh == 1)
+        trangthai_cuachinh = 0;
+      else
+        trangthai_cuachinh = 1;
       dieukhien_cuachinh(trangthai_cuachinh);
       Blynk.virtualWrite(V10,trangthai_cuachinh);
       delay(100);
+      btccState = LOW;
+    }
   }
   else
   {
+    btccState = HIGH;
   }
   if(digitalRead(BUTTON_PHONG_NGU)==LOW){ 
-      trangthai_phongngu = ~trangthai_phongngu;
+    if (btpnState == HIGH){
+      if (trangthai_phongngu == 1)
+        trangthai_phongngu = 0;
+      else
+        trangthai_phongngu = 1;
       dieukhien_phongngu(trangthai_phongngu);
       Blynk.virtualWrite(V11,trangthai_phongngu);
       delay(100);
+      btccState = LOW;
+    }
   }
   else
   {
+    btccState = HIGH;
   }
 }
 
@@ -217,12 +234,14 @@ BLYNK_WRITE(V10){
   int p = param.asInt();
   if (p == 1)
   {
-    trangthai_cuachinh = HIGH;
+    trangthai_cuachinh = 1;
+  }
+  else if (p ==0 )
+  {
+    trangthai_cuachinh = 0;
   }
   else
-  {
-    trangthai_cuachinh = LOW;
-  }
+  {}
   dieukhien_cuachinh(trangthai_cuachinh);
 }
 
@@ -230,12 +249,14 @@ BLYNK_WRITE(V11){
   int p = param.asInt();
   if (p == 1)
   {
-    trangthai_phongngu = HIGH;
+    trangthai_phongngu = 1;
+  }
+  else if (p ==0)
+  {
+    trangthai_phongngu = 0;
   }
   else
-  {
-    trangthai_phongngu = LOW;
-  }
+  {}
   dieukhien_cuachinh(trangthai_phongngu);
 }
 
@@ -256,7 +277,7 @@ void loop() {
   lcd.setCursor(0,0);        
   lcd.print("Nhiet do:");
 
-  if (millis() - times > 2000) 
+  if (millis() - times > 200) 
   {
     float nhietdo_phongbep = dht_phong_bep.readTemperature();
     float doam_phongbep = dht_phong_bep.readHumidity();
@@ -288,5 +309,5 @@ void loop() {
     times = millis();
   }
 
-  checkButton();
+  // checkButton();
 }
