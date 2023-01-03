@@ -17,7 +17,7 @@
 #define DEN_PHONG_NGU        25 // 26 
 #define DEN_PHONG_KHACH      26 // 33 
 #define DEN_HANH_LANG         27 
-#define QUAT_PHONG_NGU        23 
+#define QUAT_PHONG_NGU        14 
 #define QUAT_PHONG_KHACH      4 
 
 #define DHT11_HANH_LANG       18 
@@ -65,7 +65,7 @@ boolean startTimer = false;
 // Output: Den hanh lang:ON
 //         LCD: XIN CHAO BAN!
 void IRAM_ATTR detectsMovement() {
-  lcd.clear();
+  // lcd.clear();
   lcd.setCursor(4,0);
   lcd.print("XIN CHAO");
 
@@ -80,11 +80,11 @@ void dieukhien_cuachinh(int trangthai)
 {
   if (trangthai == 1){
     servo_cuachinh.write(90);
-    delay(15);
+    delay(150);
   }
   else if (trangthai == 0){
     servo_cuachinh.write(0);
-    delay(15);
+    delay(150);
   }
   else{}
 }
@@ -93,11 +93,11 @@ void dieukhien_phongngu(int trangthai)
 {
   if (trangthai == 1){
     servo_phongngu.write(90);
-    delay(15);
+    delay(150);
   }
   else if (trangthai == 0){
     servo_phongngu.write(0);
-    delay(15);
+    delay(150);
   }
   else{}
 }
@@ -179,6 +179,7 @@ void setup() {
   
   BlynkEdgent.begin();
   // timer.setInterval()
+  delay(2000);
 }
 
 // Define virtual Pin
@@ -254,7 +255,7 @@ void loop() {
   // set timer to display temperature blynk
   lcd.setCursor(0,0);        
   lcd.print("Nhiet do:");
-  
+
   if (millis() - times > 2000) 
   {
     float nhietdo_phongbep = dht_phong_bep.readTemperature();
@@ -275,7 +276,7 @@ void loop() {
 
     Khi_gas_value = analogRead(KHI_GAS);
 
-    lcd.setCursor(9,0);        
+    lcd.setCursor(9,0);
     lcd.print(String(nhietdo_hanhlang,1)); 
     lcd.write(0);
     lcd.print("C  ");
@@ -288,5 +289,4 @@ void loop() {
   }
 
   checkButton();
-
 }
