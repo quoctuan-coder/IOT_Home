@@ -114,7 +114,7 @@ void checkButton(){
         trangthai_cuachinh = 1;
       dieukhien_cuachinh(trangthai_cuachinh);
       Blynk.virtualWrite(V10,trangthai_cuachinh);
-      delay(100);
+      // delay(100);
       btccState = LOW;
     }
   }
@@ -130,13 +130,13 @@ void checkButton(){
         trangthai_phongngu = 1;
       dieukhien_phongngu(trangthai_phongngu);
       Blynk.virtualWrite(V11,trangthai_phongngu);
-      delay(100);
-      btccState = LOW;
+      // delay(100);
+      btpnState = LOW;
     }
   }
   else
   {
-    btccState = HIGH;
+    btpnState = HIGH;
   }
 }
 
@@ -165,7 +165,7 @@ void setup() {
   digitalWrite(QUAT_PHONG_KHACH,0);
 
   // PIR motion sensor mode input_pullup
-  pinMode(PIR,INPUT_PULLUP);
+  pinMode(PIR,INPUT_PULLDOWN);
   // Set motionSensor pin as interrupt, assign interrupt function and set RISING mode
   attachInterrupt(digitalPinToInterrupt(PIR), detectsMovement, RISING);
 
@@ -274,26 +274,27 @@ void loop() {
   // }
 
   // set timer to display temperature blynk
+  lcd.clear();
   lcd.setCursor(0,0);        
   lcd.print("Nhiet do:");
 
-  if (millis() - times > 200) 
-  {
+  // if (millis() - times > 200) 
+  // {
     float nhietdo_phongbep = dht_phong_bep.readTemperature();
     float doam_phongbep = dht_phong_bep.readHumidity();
 
-    if (isnan(nhietdo_phongbep) || isnan(doam_phongbep)) {
-      Serial.println(F("Failed to read from DHT (phong bep) sensor!"));
-      return;
-    }
+    // if (isnan(nhietdo_phongbep) || isnan(doam_phongbep)) {
+    //   Serial.println(F("Failed to read from DHT (phong bep) sensor!"));
+    //   return;
+    // }
     
     float nhietdo_hanhlang = dht_hanh_lang.readTemperature();
     float doam_hanhlang = dht_hanh_lang.readHumidity();
 
-    if (isnan(nhietdo_hanhlang) || isnan(doam_hanhlang)) {
-      Serial.println(F("Failed to read from DHT (hanh lang) sensor!"));
-      return;
-    }
+    // if (isnan(nhietdo_hanhlang) || isnan(doam_hanhlang)) {
+    //   Serial.println(F("Failed to read from DHT (hanh lang) sensor!"));
+    //   return;
+    // }
 
     Khi_gas_value = analogRead(KHI_GAS);
 
@@ -307,7 +308,7 @@ void loop() {
     Blynk.virtualWrite(V9,Khi_gas_value);
 
     times = millis();
-  }
+  // }
 
-  // checkButton();
+  checkButton();
 }
