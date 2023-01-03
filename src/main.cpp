@@ -252,6 +252,9 @@ void loop() {
   // }
 
   // set timer to display temperature blynk
+  lcd.setCursor(0,0);        
+  lcd.print("Nhiet do:");
+  
   if (millis() - times > 2000) 
   {
     float nhietdo_phongbep = dht_phong_bep.readTemperature();
@@ -271,6 +274,11 @@ void loop() {
     }
 
     Khi_gas_value = analogRead(KHI_GAS);
+
+    lcd.setCursor(9,0);        
+    lcd.print(String(nhietdo_hanhlang,1)); 
+    lcd.write(0);
+    lcd.print("C  ");
 
     Blynk.virtualWrite(V6,nhietdo_hanhlang);
     Blynk.virtualWrite(V7,nhietdo_phongbep);
