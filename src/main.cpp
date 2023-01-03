@@ -13,9 +13,9 @@
 #include "BlynkEdgent.h"
 
 // Define PIN of external deives 
-#define DEN_NHA_BEP           25 
-#define DEN_PHONG_NGU         26 
-#define DEN_PHONG_KHACH       33 
+#define DEN_NHA_BEP          33 // 25 
+#define DEN_PHONG_NGU        25 // 26 
+#define DEN_PHONG_KHACH      26 // 33 
 #define DEN_HANH_LANG         27 
 #define QUAT_PHONG_NGU        23 
 #define QUAT_PHONG_KHACH      4 
