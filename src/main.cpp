@@ -307,8 +307,8 @@ void loop() {
     Blynk.virtualWrite(V7,nhietdo_phongbep);
     Blynk.virtualWrite(V9,Khi_gas_value);
 
-    times = millis();
+    // times = millis();
   // }
 
-  checkButton();
+  // checkButton();
 }
