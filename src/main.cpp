@@ -58,7 +58,7 @@ int  trangthai_cuachinh = 1;
 int trangthai_phongngu = 1;
 boolean btccState  = HIGH;
 boolean btpnState  = HIGH;
-
+boolean pirState = LOW;
 
 unsigned long now = millis();
 unsigned long lastTrigger = 0;
@@ -314,14 +314,24 @@ void loop() {
 
   if (digitalRead(PIR) == 1)
   {
-    lcd.setCursor(4,0);
-    lcd.print("XIN CHAO");
-    digitalWrite(DEN_HANH_LANG, HIGH);
-
+    if (pirState == LOW)
+    {
+      lcd.setCursor(4,0);
+      lcd.print("XIN CHAO");
+      digitalWrite(DEN_HANH_LANG, HIGH);
+      delay(200);
+      pirState = HIGH;
+    }
+    
   }
   else
   {
-    lcd.setCursor(1,0);
-    lcd.print("TRAN THANH HAI");
+    if (pirState == HIGH)
+    {
+      lcd.setCursor(1,0);
+      lcd.print("TRAN THANH HAI");
+      digitalWrite(DEN_HANH_LANG, HIGH);
+      pirState = LOW;
+    }
   }
 }
