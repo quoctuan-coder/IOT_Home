@@ -83,11 +83,11 @@ void dieukhien_cuachinh(int trangthai)
 {
   if (trangthai == 1){
     servo_cuachinh.write(90);
-    delay(150);
+    delay(50);
   }
   else if (trangthai == 0){
     servo_cuachinh.write(0);
-    delay(150);
+    delay(50);
   }
   else{}
 }
@@ -96,11 +96,11 @@ void dieukhien_phongngu(int trangthai)
 {
   if (trangthai == 1){
     servo_phongngu.write(90);
-    delay(150);
+    delay(50);
   }
   else if (trangthai == 0){
     servo_phongngu.write(0);
-    delay(150);
+    delay(50);
   }
   else{}
 }
@@ -167,7 +167,7 @@ void setup() {
   // PIR motion sensor mode input_pullup
   pinMode(PIR,INPUT_PULLDOWN);
   // Set motionSensor pin as interrupt, assign interrupt function and set RISING mode
-  attachInterrupt(digitalPinToInterrupt(PIR), detectsMovement, RISING);
+  // attachInterrupt(digitalPinToInterrupt(PIR), detectsMovement, RISING);
 
   servo_cuachinh.attach(SERVO_CUA_CHINH);
   servo_phongngu.attach(SERVO_PHONG_NGU);
@@ -274,9 +274,9 @@ void loop() {
   // }
 
   // set timer to display temperature blynk
-  lcd.clear();
-  lcd.setCursor(0,0);        
-  lcd.print("Nhiet do:");
+  // lcd.clear();
+  // lcd.setCursor(0,0);        
+  // lcd.print("Nhiet do:");
 
   // if (millis() - times > 200) 
   // {
@@ -298,10 +298,10 @@ void loop() {
 
     Khi_gas_value = analogRead(KHI_GAS);
 
-    lcd.setCursor(9,0);
-    lcd.print(String(nhietdo_hanhlang,1)); 
-    lcd.write(0);
-    lcd.print("C  ");
+    // lcd.setCursor(9,0);
+    // lcd.print(String(nhietdo_hanhlang,1)); 
+    // lcd.write(0);
+    // lcd.print("C  ");
 
     Blynk.virtualWrite(V6,nhietdo_hanhlang);
     Blynk.virtualWrite(V7,nhietdo_phongbep);
@@ -311,4 +311,17 @@ void loop() {
   // }
 
   // checkButton();
+
+  if (digitalRead(PIR) == 1)
+  {
+    lcd.setCursor(4,0);
+    lcd.print("XIN CHAO");
+    digitalWrite(DEN_HANH_LANG, HIGH);
+
+  }
+  else
+  {
+    lcd.setCursor(1,0);
+    lcd.print("TRAN THANH HAI");
+  }
 }
