@@ -253,14 +253,18 @@ BLYNK_WRITE(V10){
   if (p == 1)
   {
     trangthai_cuachinh = 1;
+    servo_cuachinh.write(90);
+    delay(200);
   }
   else if (p ==0 )
   {
     trangthai_cuachinh = 0;
+    servo_cuachinh.write(0);
+    delay(200);
   }
   else
   {}
-  dieukhien_cuachinh(trangthai_cuachinh);
+  
 }
 
 BLYNK_WRITE(V11){
@@ -268,14 +272,18 @@ BLYNK_WRITE(V11){
   if (p == 1)
   {
     trangthai_phongngu = 1;
+    servo_phongngu.write(90);
+    delay(200);
   }
   else if (p ==0)
   {
     trangthai_phongngu = 0;
+    servo_phongngu.write(0);
+    delay(200);
   }
   else
   {}
-  dieukhien_cuachinh(trangthai_phongngu);
+ 
 }
 
 void loop() {
@@ -328,7 +336,7 @@ void loop() {
     // times = millis();
   // }
 
-  checkButton();
+  // checkButton();
 
   if (digitalRead(PIR) == 1)
   {
