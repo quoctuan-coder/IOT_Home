@@ -197,6 +197,7 @@ void setup() {
   BlynkEdgent.begin();
   // timer.setInterval()
   delay(2000);
+
 }
 
 // Define virtual Pin
@@ -265,7 +266,7 @@ void loop() {
   // timer.run();
 
   // set timer to off Led hanh Lang
-  now = millis();
+  
   // Turn off the LED after the number of seconds defined in the timeSeconds variable
   // if(startTimer && (now - lastTrigger > (timeSeconds*1000))) 
   // {
@@ -316,11 +317,13 @@ void loop() {
   {
     if (pirState == LOW)
     {
+      lcd.clear();
       lcd.setCursor(4,0);
       lcd.print("XIN CHAO");
       digitalWrite(DEN_HANH_LANG, HIGH);
-      delay(200);
       pirState = HIGH;
+      delay(200);
+      now = millis();
     }
     
   }
@@ -328,10 +331,15 @@ void loop() {
   {
     if (pirState == HIGH)
     {
+      pirState = LOW;
+    }
+    if (millis() - now > 30000)
+    {
+      lcd.clear();
       lcd.setCursor(1,0);
       lcd.print("TRAN THANH HAI");
-      digitalWrite(DEN_HANH_LANG, HIGH);
-      pirState = LOW;
+      digitalWrite(DEN_HANH_LANG, LOW);
+      now = millis();
     }
   }
 }
