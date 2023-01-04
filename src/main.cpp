@@ -140,6 +140,23 @@ void checkButton(){
   }
 }
 
+void test_servo()
+{
+  int pos;
+  for (pos = 0; pos <= 180; pos += 10) {  // goes from 0 degrees to 180 degrees
+  // in steps of 1 degree
+  servo_cuachinh.write(pos);  // tell servo to go to position in variable 'pos'
+  delay(10);           // waits 15ms for the servo to reach the position
+ }
+ int pos1;
+  for (pos1 = 0; pos1 <= 180; pos1 += 10) {  // goes from 0 degrees to 180 degrees
+  // in steps of 1 degree
+  servo_phongngu.write(pos1);  // tell servo to go to position in variable 'pos'
+  delay(10);           // waits 15ms for the servo to reach the position
+ }
+
+}
+
 void setup() {
   // Initialize serial
   Serial.begin(115200);
@@ -342,4 +359,7 @@ void loop() {
       now = millis();
     }
   }
+
+  // Test servo
+  test_servo();
 }
