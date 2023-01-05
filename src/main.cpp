@@ -99,10 +99,25 @@ void dieukhien_phongngu(int trangthai)
     delay(50);
   }
   else if (trangthai == 0){
-    servo_phongngu.write(0);
+    servo_phongngu.write(90);
     delay(50);
   }
   else{}
+}
+
+void test_servo()
+{
+  for (int i =0;i <4; i++)
+  {
+    servo_phongngu.write(90);
+    delay(1000);
+    servo_phongngu.write(0);
+    delay(1000);
+    servo_cuachinh.write(90);
+    delay(1000);
+    servo_cuachinh.write(0);
+    delay(1000);
+  }
 }
 
 void checkButton(){
@@ -111,10 +126,13 @@ void checkButton(){
       if (trangthai_cuachinh == 1)
       {
         trangthai_cuachinh = 0;
+        servo_cuachinh.write(90);
       }
       else
       {
         trangthai_cuachinh = 1;
+        servo_cuachinh.write(0);
+
       }
       dieukhien_cuachinh(trangthai_cuachinh);
       // Blynk.virtualWrite(V10,trangthai_cuachinh);
@@ -132,10 +150,12 @@ void checkButton(){
       if (trangthai_phongngu == 1)
       {
         trangthai_phongngu = 0;
+        servo_phongngu.write(90);
         digitalWrite(DEN_NHA_BEP     ,1);
       }
       else
       {
+        servo_phongngu.write(0);
         digitalWrite(DEN_NHA_BEP     ,0);
         trangthai_phongngu = 1;
       }
@@ -155,7 +175,6 @@ void checkButton(){
 void setup() {
   // Initialize serial
   Serial.begin(115200);
-  delay(100);
 
   // Setup PIN output
   pinMode(DEN_NHA_BEP   ,OUTPUT);
@@ -211,8 +230,8 @@ void setup() {
   
   BlynkEdgent.begin();
   // timer.setInterval()
-  delay(2000);
 
+  test_servo();
 }
 
 // Define virtual Pin
