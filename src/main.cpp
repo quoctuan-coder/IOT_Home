@@ -113,7 +113,7 @@ void checkButton(){
       else
         trangthai_cuachinh = 1;
       dieukhien_cuachinh(trangthai_cuachinh);
-      Blynk.virtualWrite(V10,trangthai_cuachinh);
+      // Blynk.virtualWrite(V10,trangthai_cuachinh);
       // delay(100);
       btccState = LOW;
     }
@@ -124,12 +124,13 @@ void checkButton(){
   }
   if(digitalRead(BUTTON_PHONG_NGU)==LOW){ 
     if (btpnState == HIGH){
+      
       if (trangthai_phongngu == 1)
         trangthai_phongngu = 0;
       else
         trangthai_phongngu = 1;
       dieukhien_phongngu(trangthai_phongngu);
-      Blynk.virtualWrite(V11,trangthai_phongngu);
+      // Blynk.virtualWrite(V11,trangthai_phongngu);
       // delay(100);
       btpnState = LOW;
     }
@@ -140,22 +141,6 @@ void checkButton(){
   }
 }
 
-void test_servo()
-{
-  int pos;
-  for (pos = 0; pos <= 180; pos += 10) {  // goes from 0 degrees to 180 degrees
-  // in steps of 1 degree
-  servo_cuachinh.write(pos);  // tell servo to go to position in variable 'pos'
-  delay(10);           // waits 15ms for the servo to reach the position
- }
- int pos1;
-  for (pos1 = 0; pos1 <= 180; pos1 += 10) {  // goes from 0 degrees to 180 degrees
-  // in steps of 1 degree
-  servo_phongngu.write(pos1);  // tell servo to go to position in variable 'pos'
-  delay(10);           // waits 15ms for the servo to reach the position
- }
-
-}
 
 void setup() {
   // Initialize serial
@@ -248,48 +233,48 @@ BLYNK_WRITE(V5){
   digitalWrite(QUAT_PHONG_KHACH,p);
 }
 
-BLYNK_WRITE(V10){
-  int p = param.asInt();
-  if (p == 1)
-  {
-    trangthai_cuachinh = 1;
-    servo_cuachinh.write(90);
-    delay(200);
-  }
-  else if (p ==0 )
-  {
-    trangthai_cuachinh = 0;
-    servo_cuachinh.write(0);
-    delay(200);
-  }
-  else
-  {}
+// BLYNK_WRITE(V10){
+//   int p = param.asInt();
+//   if (p == 1)
+//   {
+//     trangthai_cuachinh = 1;
+//     servo_cuachinh.write(90);
+//     delay(200);
+//   }
+//   else if (p ==0 )
+//   {
+//     trangthai_cuachinh = 0;
+//     servo_cuachinh.write(0);
+//     delay(200);
+//   }
+//   else
+//   {}
   
-}
+// }
 
-BLYNK_WRITE(V11){
-  int p = param.asInt();
-  if (p == 1)
-  {
-    trangthai_phongngu = 1;
-    servo_phongngu.write(90);
-    delay(200);
-  }
-  else if (p ==0)
-  {
-    trangthai_phongngu = 0;
-    servo_phongngu.write(0);
-    delay(200);
-  }
-  else
-  {}
+// BLYNK_WRITE(V11){
+//   int p = param.asInt();
+//   if (p == 1)
+//   {
+//     trangthai_phongngu = 1;
+//     servo_phongngu.write(90);
+//     delay(200);
+//   }
+//   else if (p ==0)
+//   {
+//     trangthai_phongngu = 0;
+//     servo_phongngu.write(0);
+//     delay(200);
+//   }
+//   else
+//   {}
  
-}
+// }
 
 void loop() {
   BlynkEdgent.run();
   // timer.run();
-
+  checkButton();
   // set timer to off Led hanh Lang
   
   // Turn off the LED after the number of seconds defined in the timeSeconds variable
