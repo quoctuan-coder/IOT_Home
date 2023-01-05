@@ -109,9 +109,13 @@ void checkButton(){
   if(digitalRead(BUTTON_CUA_CHINH)==LOW){ 
     if (btccState == HIGH){
       if (trangthai_cuachinh == 1)
+      {
         trangthai_cuachinh = 0;
+      }
       else
+      {
         trangthai_cuachinh = 1;
+      }
       dieukhien_cuachinh(trangthai_cuachinh);
       // Blynk.virtualWrite(V10,trangthai_cuachinh);
       // delay(100);
@@ -126,9 +130,15 @@ void checkButton(){
     if (btpnState == HIGH){
       
       if (trangthai_phongngu == 1)
+      {
         trangthai_phongngu = 0;
+        digitalWrite(DEN_NHA_BEP     ,1);
+      }
       else
+      {
+        digitalWrite(DEN_NHA_BEP     ,0);
         trangthai_phongngu = 1;
+      }
       dieukhien_phongngu(trangthai_phongngu);
       // Blynk.virtualWrite(V11,trangthai_phongngu);
       // delay(100);
@@ -154,6 +164,9 @@ void setup() {
   pinMode(DEN_HANH_LANG ,OUTPUT);
   pinMode(QUAT_PHONG_NGU ,OUTPUT);
   pinMode(QUAT_PHONG_KHACH ,OUTPUT);
+  pinMode(BUTTON_CUA_CHINH,INPUT);
+  pinMode(BUTTON_PHONG_NGU,INPUT);
+
 
   // Setup PIN input
   pinMode(KHI_GAS,INPUT);
@@ -352,6 +365,5 @@ void loop() {
       now = millis();
     }
   }
-
 
 }
